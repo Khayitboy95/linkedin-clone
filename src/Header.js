@@ -7,15 +7,26 @@ import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ChatIcon from '@material-ui/icons/Chat';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import HeaderOption from './HeaderOption';
+import { useDispatch } from 'react-redux';
+import { logout } from './features/userSlice';
+import { auth } from './firebase';
 
 const Header = () => {
+
+    const dispatch = useDispatch();
+
+    const logoutOfApp = () => {
+        dispatch(logout());
+        auth.signOut();
+    }
+
     return (
         <div className='header'>
             <div className="header__left">
-                <img src="https://www.flaticon.com/svg/vstatic/svg/174/174857.svg?token=exp=1611634529~hmac=35615bae35e677a89764a9666691b70b" alt=""/>
+                <img src="https://cdn.worldvectorlogo.com/logos/linkedin-icon-2.svg" alt=""/>
                 <div className="header__search">
                     <SearchIcon />
-                    <input type="text"/>
+                    <input placeholder="Search" type="text"/>
                 </div>
             </div>
             <div className="header__right">
@@ -24,7 +35,7 @@ const Header = () => {
             <HeaderOption Icon={BusinessCenterIcon} title="Jobs" /> 
             <HeaderOption Icon={ChatIcon} title="Messaging" />
             <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-            <HeaderOption title="me" avatar='https://avatars.githubusercontent.com/u/40865597?s=60&v=4' />
+            <HeaderOption avatar={true} onClick={logoutOfApp} title="me" />
             </div>
         </div>
     )
